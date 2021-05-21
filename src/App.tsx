@@ -8,6 +8,12 @@ import StyledComponents from './components/section4_css/StyledComponents';
 import StyledJsx from './components/section4_css/StyledJsx';
 import Emotion from './components/section4_css/Emotion';
 import Router from './components/section5_ReactRouter/router/Router';
+import PrimaryButton from './components/section6_AtomicDesign/atoms/button/PrimaryButton';
+import SecondaryButton from './components/section6_AtomicDesign/atoms/button/SecondaryButton';
+import SearchInput from './components/section6_AtomicDesign/molecures/SearchInput';
+import UserCard from './components/section6_AtomicDesign/organisms/user/UserCard';
+import HeaderOnlyLayout from './components/section6_AtomicDesign/templates/HeaderOnlyLayout';
+import DefaultLayout from './components/section6_AtomicDesign/templates/DefaultLayout';
 
 interface AppProps {}
 const App: React.FunctionComponent<AppProps> = () => {
@@ -46,8 +52,25 @@ const App: React.FunctionComponent<AppProps> = () => {
   };
   console.log(tempValue2());
 
+  // BrowserRouterコンポのbasename属性にコンテキストルート的なapp名パスを指定。
+  // package.jsonに homepage: "/同じapp名パス/"を追加。
+  // これでnpmがWebサーバーの時 http://localhost:3000/jakee_react_stepup で動く。localhost:3000/だけでも実は動く。
+  // buildしたフォルダを別のWebサーバーに配置した時も http://localhost/jakee_react_stepup/index.html とかで動く。
+
+  // section6 Atomic Design用
+  const user: User = {
+    name: 'ニャン助',
+    img: 'https://source.unsplash.com/Tn8DLxwuDMA',
+    mail: 'aaa@gmail.com',
+    phone: '1234-5678',
+    company: {
+      name: 'ニャッファッファStudio',
+    },
+    website: 'http://www.google.com/',
+  };
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/jakee_react_stepup/">
       <div className="App">
         <input value={text} onChange={onChangeText} />
         <br />
@@ -67,9 +90,26 @@ const App: React.FunctionComponent<AppProps> = () => {
         <br />
 
         <Router />
+        <br />
+        <DefaultLayout>
+          <div>section 6 Atomic Design</div>
+          <PrimaryButton>プライマリーボタンだよ</PrimaryButton>
+          <SecondaryButton>セカンダリーボタンだよ</SecondaryButton>
+          <SearchInput />
+          <UserCard user={user} />
+        </DefaultLayout>
       </div>
     </BrowserRouter>
   );
 };
 
 export default App;
+type User = {
+  name: string;
+  img: string;
+  mail: string;
+  phone: string;
+  company: { name: string };
+  website: string;
+};
+export type { User };
