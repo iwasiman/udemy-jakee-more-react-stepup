@@ -8,7 +8,7 @@ const SHeader = styled.header`
   padding: 8px 0;
 `;
 
-// ライブラリが提供しているコンポーネントも拡張できる。
+// ライブラリが提供しているコンポーネントも拡張できる。すごい。
 const SLink = styled(Link)`
   margin: 0 8px;
 `;
@@ -22,7 +22,7 @@ const Header: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <SHeader>
       <SLink to="/">HOME</SLink>
-      <SLink to="/user">USER</SLink>
+      <SLink to="/users">USER</SLink>
       <br />
     </SHeader>
   );

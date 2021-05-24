@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import styled from 'styled-components';
+//import styled from 'styled-components';
 import Header from '../atoms/layout/Header';
 
 // 子供に任意の数の入れ子のコンポーネントやタグを入れる時は、下のようにreactElementの配列型にする。

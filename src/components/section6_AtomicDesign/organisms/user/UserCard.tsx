@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { User } from '../../../../App';
+import User from '../../User';
 import Card from '../../atoms/card/Card';
 import UserIconWithName from '../../molecures/user/UserIconWithName';
 

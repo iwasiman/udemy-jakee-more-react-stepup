@@ -7,7 +7,7 @@ const SFooter = styled.footer`
   padding: 8px 0;
   pisition: fixed;
   botton: 0;
-  width: 100px;
+  width: 100%;
 `;
 
 type Props = {};

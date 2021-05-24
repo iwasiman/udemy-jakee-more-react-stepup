@@ -10,10 +10,10 @@ import Emotion from './components/section4_css/Emotion';
 import Router from './components/section5_ReactRouter/router/Router';
 import PrimaryButton from './components/section6_AtomicDesign/atoms/button/PrimaryButton';
 import SecondaryButton from './components/section6_AtomicDesign/atoms/button/SecondaryButton';
-import SearchInput from './components/section6_AtomicDesign/molecures/SearchInput';
-import UserCard from './components/section6_AtomicDesign/organisms/user/UserCard';
+// eslint-disable-next-line
 import HeaderOnlyLayout from './components/section6_AtomicDesign/templates/HeaderOnlyLayout';
 import DefaultLayout from './components/section6_AtomicDesign/templates/DefaultLayout';
+import Sec6Router from './components/section6_AtomicDesign/router/Sec6Router';
 
 interface AppProps {}
 const App: React.FunctionComponent<AppProps> = () => {
@@ -57,18 +57,6 @@ const App: React.FunctionComponent<AppProps> = () => {
   // これでnpmがWebサーバーの時 http://localhost:3000/jakee_react_stepup で動く。localhost:3000/だけでも実は動く。
   // buildしたフォルダを別のWebサーバーに配置した時も http://localhost/jakee_react_stepup/index.html とかで動く。
 
-  // section6 Atomic Design用
-  const user: User = {
-    name: 'ニャン助',
-    img: 'https://source.unsplash.com/Tn8DLxwuDMA',
-    mail: 'aaa@gmail.com',
-    phone: '1234-5678',
-    company: {
-      name: 'ニャッファッファStudio',
-    },
-    website: 'http://www.google.com/',
-  };
-
   return (
     <BrowserRouter basename="/jakee_react_stepup/">
       <div className="App">
@@ -93,10 +81,9 @@ const App: React.FunctionComponent<AppProps> = () => {
         <br />
         <DefaultLayout>
           <div>section 6 Atomic Design</div>
+          <Sec6Router />
           <PrimaryButton>プライマリーボタンだよ</PrimaryButton>
           <SecondaryButton>セカンダリーボタンだよ</SecondaryButton>
-          <SearchInput />
-          <UserCard user={user} />
         </DefaultLayout>
       </div>
     </BrowserRouter>
@@ -104,12 +91,3 @@ const App: React.FunctionComponent<AppProps> = () => {
 };
 
 export default App;
-type User = {
-  name: string;
-  img: string;
-  mail: string;
-  phone: string;
-  company: { name: string };
-  website: string;
-};
-export type { User };
