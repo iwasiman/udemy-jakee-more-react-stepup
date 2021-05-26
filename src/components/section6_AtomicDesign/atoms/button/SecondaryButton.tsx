@@ -3,6 +3,7 @@ import BaseButton from './BaseButton';
 
 type Props = {
   children: string;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 const SButton = styled(BaseButton)`
   background-color: #11999e;
@@ -22,7 +23,7 @@ const SButton = styled(BaseButton)`
  * 親でのコンポーネント指定時のタグの間の文字列をボタン文字列に使います。
  */
 const SecondaryButton: React.FunctionComponent<Props> = (props: Props) => {
-  const { children } = props;
-  return <SButton>{children}</SButton>;
+  const { children, onClick } = props;
+  return <SButton onClick={onClick}>{children}</SButton>;
 };
 export default SecondaryButton;

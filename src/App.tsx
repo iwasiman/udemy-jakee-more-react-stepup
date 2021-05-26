@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useContext } from 'react';
 import { BrowserRouter, Link } from 'react-router-dom';
 import './App.css';
 import ChildArea from './components/ChildArea';
@@ -14,6 +14,12 @@ import SecondaryButton from './components/section6_AtomicDesign/atoms/button/Sec
 import HeaderOnlyLayout from './components/section6_AtomicDesign/templates/HeaderOnlyLayout';
 import DefaultLayout from './components/section6_AtomicDesign/templates/DefaultLayout';
 import Sec6Router from './components/section6_AtomicDesign/router/Sec6Router';
+import {
+  UserProvider,
+  UserContext,
+  UserContextType,
+} from './components/section7_GlobalState/providers/UserProvider';
+//import UserInfo from './components/section7_GlobalState/UserInfo';
 
 interface AppProps {}
 const App: React.FunctionComponent<AppProps> = () => {
@@ -52,13 +58,43 @@ const App: React.FunctionComponent<AppProps> = () => {
   };
   console.log(tempValue2());
 
+  // ■セクション7: グローバルなstate管理を知る
+  // const history = useHistory();
+  const { sampleContextName, userInfo, setUserInfo } =
+    useContext<UserContextType>(UserContext);
+  const onClickAdmin = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    //alert('管理者');
+    // TSでは以下のhistoryがnullだった。何か足りないのかも。
+    // history.push({
+    //   pathname: '/users',
+    //   state: { isAdmin: true },
+    // });
+    if (typeof userInfo !== 'undefined') {
+      userInfo.state.isAdmin = true;
+    }
+    console.log(sampleContextName);
+    //問題：このsetUserInfoが関数として認識されない。TSだと宣言が何かいりそう
+    setUserInfo(userInfo);
+  };
+  const onClickGeneral = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    // alert('一般');
+    // history.push({
+    //   pathname: '/users',
+    //   state: { isAdmin: false },
+    // });
+    if (typeof userInfo !== 'undefined') {
+      userInfo.state.isAdmin = false;
+    }
+    setUserInfo(userInfo);
+  };
+
   // BrowserRouterコンポのbasename属性にコンテキストルート的なapp名パスを指定。
   // package.jsonに homepage: "/同じapp名パス/"を追加。
   // これでnpmがWebサーバーの時 http://localhost:3000/jakee_react_stepup で動く。localhost:3000/だけでも実は動く。
   // buildしたフォルダを別のWebサーバーに配置した時も http://localhost/jakee_react_stepup/index.html とかで動く。
 
   return (
-    <BrowserRouter basename="/jakee_react_stepup/">
+    <BrowserRouter basename="/udemy-jakee-more-react-stepup/">
       <div className="App">
         <input value={text} onChange={onChangeText} />
         <br />
@@ -77,14 +113,23 @@ const App: React.FunctionComponent<AppProps> = () => {
         <Link to="/page2">Page2へ</Link>
         <br />
 
-        <Router />
-        <br />
-        <DefaultLayout>
-          <div>section 6 Atomic Design</div>
-          <Sec6Router />
-          <PrimaryButton>プライマリーボタンだよ</PrimaryButton>
-          <SecondaryButton>セカンダリーボタンだよ</SecondaryButton>
-        </DefaultLayout>
+        <UserProvider>
+          <Router />
+          <br />
+          <DefaultLayout>
+            <div>section 6 Atomic Design</div>
+            <SecondaryButton onClick={onClickAdmin}>
+              管理者ユーザ
+            </SecondaryButton>
+            <br />
+            <br />
+            <SecondaryButton onClick={onClickGeneral}>
+              一般ユーザ
+            </SecondaryButton>
+            <Sec6Router />
+            <PrimaryButton>プライマリーボタンだよ</PrimaryButton>
+          </DefaultLayout>
+        </UserProvider>
       </div>
     </BrowserRouter>
   );

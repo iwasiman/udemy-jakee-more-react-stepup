@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import SearchInput from '../molecures/SearchInput';
 import UserCard from '../organisms/user/UserCard';
 import User from '../User';
+//import { useLocation } from 'react-router-dom';
 
 const SContainer = styled.div`
   display: flex;
